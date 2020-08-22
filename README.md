@@ -17,6 +17,7 @@ This exploit (SICD - Smart Install Config Dumper) was adapted from the work of S
 
 import socket
 import time
+import sys
 
 # Vulnerable Cisco device
 victim_ip = '10.1.2.3'
